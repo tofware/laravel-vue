@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\PostSeeder
+ * App\Models\Post
  *
  * @property int $id
  * @property string $title
