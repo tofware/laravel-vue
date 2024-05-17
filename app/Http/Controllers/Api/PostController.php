@@ -9,6 +9,7 @@ use App\Models\Post;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -28,8 +29,24 @@ class PostController extends Controller
         }
 
         $posts = Post::with('category')
-            ->when(request('category'), function (Builder $query) {
-                $query->where('category_id', request('category'));
+            ->when(request('search_category'), function (Builder $query) {
+                $query->where('category_id', request('search_category'));
+            })
+            ->when(request('search_id'), function (Builder $query) {
+                $query->where('id', request('search_id'));
+            })
+            ->when(request('search_title'), function (Builder $query) {
+                $query->where('title', 'like', '%' . request('search_title') . '%');
+            })
+            ->when(request('search_content'), function (Builder $query) {
+                $query->where('content', 'like', '%' . request('search_content') . '%');
+            })
+            ->when(request('search_global'), function (Builder $query) {
+                $query->whereAny([
+                    'id',
+                    'title',
+                    'content',
+                ], 'LIKE', '%' . request('search_global') . '%');
             })
             ->orderBy($orderColumn, $orderDirection)
             ->paginate(10);
@@ -43,9 +60,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): PostResource
     {
+        Gate::authorize('posts.create');
+
         if ($request->hasFile('thumbnail')) {
             $filename = $request->file('thumbnail')->getClientOriginalName();
-            info($filename);
         }
 
         $post = Post::create($request->validated());
@@ -59,6 +77,8 @@ class PostController extends Controller
      */
     public function show(Post $post): PostResource
     {
+        Gate::authorize('posts.update');
+
         return new PostResource($post);
     }
 
@@ -69,6 +89,8 @@ class PostController extends Controller
      */
     public function update(Post $post, StorePostRequest $request): PostResource
     {
+        Gate::authorize('posts.update');
+
         $post->update($request->validated());
 
         return new PostResource($post);
@@ -80,6 +102,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post): Response
     {
+        Gate::authorize('posts.delete');
+
         $post->delete();
 
         return response()->noContent();
