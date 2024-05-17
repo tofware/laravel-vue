@@ -1,7 +1,10 @@
 import './bootstrap';
 import {createApp} from "vue";
-import PostsIndex from './components/Posts/Index.vue';
+import App from './layouts/App.vue';
+import router from './routes/index.js';
+import VueSweetalert2 from "vue-sweetalert2";
 
-createApp({})
-    .component('PostsIndex', PostsIndex)
+createApp(App)
+    .use(router)
+    .use(VueSweetalert2)
     .mount('#app')
