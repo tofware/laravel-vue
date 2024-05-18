@@ -7,16 +7,24 @@ export default function useAuth() {
     const processing = ref(false)
     const validationErrors = ref({})
     const router = useRouter()
+
     const loginForm = reactive({
         email: '',
         password: '',
         remember: false
     })
 
+    const registerForm = reactive({
+        email: '',
+        password: '',
+        password_confirmation: ''
+    })
+
     const user = reactive({
         name: '',
         email: ''
     })
+
     const ability = inject(ABILITY_TOKEN)
     const swal = inject('$swal')
 
@@ -60,6 +68,24 @@ export default function useAuth() {
         await router.push({ name: 'posts.index' })
     }
 
+    const submitRegister = async () => {
+        if(processing.value) return
+
+        processing.value = true
+        validationErrors.value = {}
+
+        axios.post('/register', registerForm)
+            .then(async response => {
+                router.push({name: 'login'})
+            })
+            .catch(error => {
+                if(error.response?.data) {
+                    validationErrors.value = error.response.data.errors
+                }
+            })
+            .finally(() => processing.value = false)
+    }
+
     const getUser = () => {
         axios.get('/api/user')
             .then(response => {
@@ -86,5 +112,5 @@ export default function useAuth() {
             })
     }
 
-    return { loginForm, validationErrors, processing, submitLogin, user, getUser, logout, getAbilities }
+    return { loginForm, registerForm, validationErrors, processing, submitLogin, submitRegister, user, getUser, logout, getAbilities }
 }
