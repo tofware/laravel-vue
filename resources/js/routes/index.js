@@ -11,9 +11,9 @@ import Register from "@/components/Auth/Register.vue";
 function auth(to, from, next) {
     if (JSON.parse(localStorage.getItem('loggedIn'))) {
         next()
+    } else {
+        next('/login')
     }
-
-    next('/login')
 }
 
 const routes = [
