@@ -17,10 +17,10 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => substr($this->content, 0, 50) . '...',
+            'content' => $this->content,
             'category' => $this->category?->name,
             'category_id' => $this->category_id,
-            'created_at' => $this->created_at->toDateString()
+            'created_at' => $this->created_at->toDateTimeString()
         ];
     }
 }

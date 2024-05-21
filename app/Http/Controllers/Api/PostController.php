@@ -49,7 +49,7 @@ class PostController extends Controller
                 ], 'LIKE', '%' . request('search_global') . '%');
             })
             ->orderBy($orderColumn, $orderDirection)
-            ->paginate(10);
+            ->paginate(20);
 
         return PostResource::collection($posts);
     }

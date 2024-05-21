@@ -7,6 +7,8 @@ import AuthenticatedLayout from '@/layouts/Authenticated.vue';
 import GuestLayout from '@/layouts/Guest.vue';
 import Login from '@/components/Auth/Login.vue';
 import Register from "@/components/Auth/Register.vue";
+import Homepage from "@/components/Homepage.vue";
+import Blog from "@/layouts/Blog.vue";
 
 function auth(to, from, next) {
     if (JSON.parse(localStorage.getItem('loggedIn'))) {
@@ -18,8 +20,16 @@ function auth(to, from, next) {
 
 const routes = [
     {
-        path: '/',
-        redirect: {name: 'login'},
+        component: Blog,
+        children: [
+            {
+                path: '/home',
+                name: 'homepage',
+                component: Homepage
+            },
+        ]
+    },
+    {
         component: GuestLayout,
         children: [
             {
@@ -57,7 +67,11 @@ const routes = [
                 component: PostsEdit
             }
         ]
-    }
+    },
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/home'
+    },
 ]
 
 export default createRouter({

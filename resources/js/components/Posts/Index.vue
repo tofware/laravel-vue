@@ -1,19 +1,24 @@
 <template>
     <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
         <div class="min-w-full align-middle">
-            <div class="mb-4 grid lg:grid-cols-4">
-                <input v-model="search_global" type="text" placeholder="Search..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <div class="flex justify-between">
+                <div class="mb-4 grid lg:grid-cols-4">
+                    <input v-model="search_global" type="text" placeholder="Search..." class="inline-block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <router-link :to="{ name: 'posts.create' }" active-class="border-b-2 border-indigo-400" class="text-xl inline-flex items-center px-1 pt-1 font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">
+                    + Create
+                </router-link>
             </div>
 
             <table class="min-w-full divide-y divide-gray-200 border">
                 <thead>
                 <tr>
-                    <th class="px-6 py-3 bg-gray-50 text-left">
+                    <th class="px-3 bg-gray-50 text-left">
                         <input v-model="search_id" type="text"
                                class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                placeholder="Filter by ID">
                     </th>
-                    <th class="px-6 py-3 bg-gray-50 text-left">
+                    <th class="px-3 py-3 bg-gray-50 text-left">
                         <input v-model="search_title" type="text"
                                class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                placeholder="Filter by Title">
@@ -27,7 +32,7 @@
                             </option>
                         </select>
                     </th>
-                    <th class="px-6 py-3 bg-gray-50 text-left">
+                    <th class="bg-gray-50 text-left">
                         <input v-model="search_content" type="text"
                                class="inline-block w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                placeholder="Filter by Content">

@@ -12,6 +12,28 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(10)->create();
+        $categories = [
+            'Football',
+            'Basketball',
+            'Baseball',
+            'Tennis',
+            'Cricket',
+            'Rugby',
+            'Golf',
+            'Boxing',
+            'MMA',
+            'Cycling',
+            'Swimming',
+            'Athletics',
+            'Hockey',
+            'Table Tennis',
+            'Badminton',
+            'Volleyball',
+            'Wrestling',
+        ];
+
+        foreach ($categories as $category) {
+            Category::create(['name' => $category]);
+        }
     }
 }
