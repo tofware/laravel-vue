@@ -3,6 +3,9 @@ import {createRouter, createWebHistory} from "vue-router";
 import PostsIndex from "@/components/Posts/Index.vue";
 import PostsCreate from "@/components/Posts/Create.vue";
 import PostsEdit from "@/components/Posts/Edit.vue";
+import CategoriesIndex from "@/components/Categories/Index.vue";
+import CategoriesCreate from "@/components/Categories/Create.vue";
+import CategoriesEdit from "@/components/Categories/Edit.vue";
 import AuthenticatedLayout from '@/layouts/Authenticated.vue';
 import GuestLayout from '@/layouts/Guest.vue';
 import Login from '@/components/Auth/Login.vue';
@@ -65,6 +68,24 @@ const routes = [
                 name: 'posts.edit',
                 meta: {title: 'Edit post'},
                 component: PostsEdit
+            },
+            {
+                path: '/categories',
+                name: 'categories.index',
+                meta: {title: 'Categories'},
+                component: CategoriesIndex
+            },
+            {
+                path: '/categories/create',
+                name: 'categories.create',
+                meta: {title: 'Add new category'},
+                component: CategoriesCreate,
+            },
+            {
+                path: '/categories/edit/:id',
+                name: 'categories.edit',
+                meta: {title: 'Edit category'},
+                component: CategoriesEdit,
             }
         ]
     },
