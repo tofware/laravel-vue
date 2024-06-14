@@ -11,6 +11,7 @@ import GuestLayout from '@/layouts/Guest.vue';
 import Login from '@/components/Auth/Login.vue';
 import Register from "@/components/Auth/Register.vue";
 import Homepage from "@/components/Homepage.vue";
+import CategoryArticles from "@/components/CategoryArticles.vue";
 import Blog from "@/layouts/Blog.vue";
 
 function auth(to, from, next) {
@@ -29,6 +30,11 @@ const routes = [
                 path: '/home',
                 name: 'homepage',
                 component: Homepage
+            },
+            {
+                path: '/:name',
+                name: 'categories.show',
+                component: CategoryArticles
             },
         ]
     },

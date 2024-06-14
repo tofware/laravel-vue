@@ -114,3 +114,7 @@ export default function useAuth() {
 
     return { loginForm, registerForm, validationErrors, processing, submitLogin, submitRegister, user, getUser, logout, getAbilities }
 }
+
+export function isAuthenticated() {
+    return localStorage.getItem('loggedIn');
+}
